@@ -36,14 +36,21 @@
       }
 
       li {
+        display: inline-block;
         list-style-type: none;
+        margin-right: 1.5rem;
 
-        a {
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a, span {
           font-size: 1.8rem;
           line-height: 1;
           color: black;
           text-decoration: none;
           text-transform: uppercase;
+          cursor: pointer;
         }
 
       }
