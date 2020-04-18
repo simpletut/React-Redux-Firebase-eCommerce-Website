@@ -44,12 +44,13 @@
           margin-right: 0;
         }
 
-        a {
+        a, span {
           font-size: 1.8rem;
           line-height: 1;
           color: black;
           text-decoration: none;
           text-transform: uppercase;
+          cursor: pointer;
         }
 
       }
