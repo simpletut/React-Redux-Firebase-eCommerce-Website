@@ -1,33 +1,56 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import { TodoContext } from './../../providers/todos/todo.provider';
 
 const Todo = props => {
-  const { todos, addTodo, removeTodo, clearTodos, todoCount } = useContext(TodoContext);
+  const { todos, addTodo, removeTodo, clearTodos, resetTodos, todosTotalCount } = useContext(TodoContext);
+  const [newTodo, setNewTodo] = useState('')
+
+  const handleAddTodo = todo => {
+    if (!todo) return;
+    addTodo({
+      id: Math.random(),
+      title: todo
+    });
+    setNewTodo('');
+  }
 
   return (
     <table>
       <tbody>
         <tr>
           <th>
-            <h3>
-              Outstanding todos: {todoCount}
+            <h3 style={{ textAlign: 'left' }}>
+              Outstanding todos: {todosTotalCount}
             </h3>
           </th>
         </tr>
         <tr>
           <td>
-            <button onClick={() => addTodo({
-              id: Math.random(),
-              title: `Here is another new Todo`
-            })}>
-              Add New Random Todo
-            </button>
-          </td>
-          <td>
-            <button onClick={() => clearTodos()}>
-              Clear todos
-            </button>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input value={newTodo} onChange={e => setNewTodo(e.target.value)} />
+                  </td>
+                  <td>
+                    <button onClick={() => handleAddTodo(newTodo)}>
+                      Add New Random Todo
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={() => clearTodos()}>
+                      Clear todos
+                    </button>
+                  </td>
+                  <td>
+                    <button onClick={() => resetTodos()}>
+                      Reset Todos
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
         <tr>
@@ -35,11 +58,11 @@ const Todo = props => {
             {/* Space */}
           </td>
         </tr>
-        {todos.map(todo => {
+        {todos.map((todo, index) => {
           const { title } = todo;
 
           return (
-            <tr>
+            <tr key={index}>
               <td>
                 <span>
                   {title && title}
@@ -50,8 +73,8 @@ const Todo = props => {
               </td>
               <td>
                 <span onClick={() => removeTodo(todo)} style={{ cursor: 'pointer' }}>
-                  Delete me
-                  </span>
+                  Delete
+                </span>
               </td>
             </tr>
           )

@@ -1,0 +1,6 @@
+export default {
+  'SET_TODOS': 'SET_TODOS',
+  'CLEAR_TODOS': 'CLEAR_TODOS',
+  'SET_TODO_COUNT': 'SET_TODO_COUNT',
+  'RESET_TODOS': 'RESET_TODOS'
+};
