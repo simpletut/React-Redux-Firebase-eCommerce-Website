@@ -14,6 +14,9 @@ import WithAdminAuth from './hoc/withAdminAuth';
 import MainLayout from './layouts/MainLayout';
 import HomepageLayout from './layouts/HomepageLayout';
 
+// Providers
+import TodoProvider from './providers/todos/todo.provider';
+
 // pages
 import Homepage from './pages/Homepage';
 import Registration from './pages/Registration';
@@ -21,6 +24,7 @@ import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Todo from './pages/Todos';
 import './default.scss';
 
 const App = props => {
@@ -70,6 +74,11 @@ const App = props => {
               <Admin />
             </MainLayout>
           </WithAdminAuth>
+        )} />
+        <Route path="/todo" render={() => (
+          <TodoProvider>
+            <Todo />
+          </TodoProvider>
         )} />
       </Switch>
     </div>
