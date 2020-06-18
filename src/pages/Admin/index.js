@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { firestore } from './../../firebase/utils';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
+import { addProductStart, fetchProductsStart, deleteProductStart } from './../../redux/Products/products.actions';
 import './styles.scss';
 
+const mapState = ({ productsData }) => ({
+  products: productsData.products
+});
+
 const Admin = props => {
-  const [products, setProducts] = useState([]);
+  const { products } = useSelector(mapState);
+  const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
   const [productCategory, setProductCategory] = useState('mens');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
+
+  useEffect(() => {
+    dispatch(
+      fetchProductsStart()
+    );
+  }, []);
 
   const toggleModal = () => setHideModal(!hideModal);
 
@@ -21,25 +33,24 @@ const Admin = props => {
     toggleModal
   };
 
-  useEffect(() => {
-    firestore.collection('products').get().then(snapshot => {
-      const snapshotData = snapshot.docs.map(doc => doc.data());
-      setProducts(snapshotData);
-    });
-  }, []);
-
+  const resetAddProductForm = () => {
+    setHideModal(true);
+    setProductCategory('mens');
+    setProductName('');
+    setProductThumbnail('');
+    setProductPrice(0);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    firestore.collection('products').doc().set({
+    dispatch(addProductStart({
       productCategory,
       productName,
       productThumbnail,
       productPrice
-    }).then(e => {
-      // Success
-    });
+    }));
+    resetAddProductForm();
 
   };
 
@@ -107,6 +118,52 @@ const Admin = props => {
           </form>
         </div>
       </Modal>
+
+      <div className="manageProducts">
+        <table border="0" cellPadding="0" cellSpacing="0">
+          <tbody>
+            <tr>
+              <th>
+                <h1>
+                  Manage Products
+                </h1>
+              </th>
+            </tr>
+            <tr>
+              <td>
+                {/* Space */}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table cellSpacing="0" cellPadding="10" border="0">
+                  <tbody>
+                    {products.map((product, index) => {
+                      const { productName, productThumbnail, documentID } = product;
+                      return (
+                        <tr key={index}>
+                          <td className="img">
+                            <img src={productThumbnail} />
+                          </td>
+                          <td className="name">
+                            {productName}
+                          </td>
+                          <td className="delete">
+                            <Button onClick={() => dispatch(deleteProductStart({ documentID }))}>
+                              Delete
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
 
     </div>
   );
