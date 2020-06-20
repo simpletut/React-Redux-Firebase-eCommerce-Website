@@ -80,8 +80,8 @@ a, a:hover {
   position: relative;
   display: inline-block;
   width: 100%;
-  height: 100%;
-  padding: 3rem 0 0 25.0rem;
+  min-height: 100%;
+  padding: 3rem 0 6rem 25.0rem;
   border-bottom: 1px solid #d3d3d3;
 
   .sidebar {
