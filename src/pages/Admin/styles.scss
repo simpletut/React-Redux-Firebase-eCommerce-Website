@@ -22,3 +22,25 @@
 
   }
 }
+
+.manageProducts {
+
+  h1 {
+    margin-top: 1.5rem;
+  }
+
+  table.results {
+    tr {
+
+      &:nth-child(even) {
+        background-color: #d3d3d3;
+      }
+
+      .thumb {
+        width: 15.0rem;
+        margin: 0 auto;
+      }
+
+    }
+  }
+}
