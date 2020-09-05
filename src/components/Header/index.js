@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { signOutUserStart } from './../../redux/User/user.actions';
 import './styles.scss';
-import { Link } from 'react-router-dom';
 
 import Logo from './../../assets/logo.png';
 
@@ -26,6 +26,21 @@ const Header = props => {
             <img src={Logo} alt="SimpleTut LOGO" />
           </Link>
         </div>
+
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/search">
+                Search
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
         <div className="callToActions">
 
