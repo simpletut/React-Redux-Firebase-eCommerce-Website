@@ -23,6 +23,7 @@ import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Products from './pages/Products';
 import './default.scss';
 
 const App = props => {
@@ -43,6 +44,11 @@ const App = props => {
           </HomepageLayout>
         )}
         />
+        <Route path="/products" render={() => (
+          <MainLayout>
+            <Products />
+          </MainLayout>
+        )} />
         <Route path="/registration" render={() => (
           <MainLayout>
             <Registration />
