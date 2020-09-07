@@ -17,31 +17,11 @@ export const handleAddProduct = product => {
 
 export const handleFetchProducts = (filterType = '') => {
   return new Promise((resolve, reject) => {
+    let ref = firestore.collection('products').orderBy('createdDate');
 
-    if (filterType) {
-      firestore
-        .collection('products')
-        .where("productCategory", "==", filterType)
-        .orderBy('createdDate')
-        .get()
-        .then(snapshot => {
-          const productsArray = snapshot.docs.map(doc => {
-            return {
-              ...doc.data(),
-              documentID: doc.id
-            }
-          });
-          resolve(productsArray);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    }
+    if (filterType) ref = ref.where("productCategory", "==", filterType);
 
-    firestore
-      .collection('products')
-      .orderBy('createdDate')
-      .get()
+    ref.get()
       .then(snapshot => {
         const productsArray = snapshot.docs.map(doc => {
           return {
@@ -54,8 +34,8 @@ export const handleFetchProducts = (filterType = '') => {
       .catch(err => {
         reject(err);
       });
+  });
 
-  })
 }
 
 export const handleDeleteProduct = documentID => {
