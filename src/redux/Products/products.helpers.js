@@ -15,8 +15,29 @@ export const handleAddProduct = product => {
   });
 }
 
-export const handleFetchProducts = () => {
+export const handleFetchProducts = (filterType = '') => {
   return new Promise((resolve, reject) => {
+
+    if (filterType) {
+      firestore
+        .collection('products')
+        .where("productCategory", "==", filterType)
+        .orderBy('createdDate')
+        .get()
+        .then(snapshot => {
+          const productsArray = snapshot.docs.map(doc => {
+            return {
+              ...doc.data(),
+              documentID: doc.id
+            }
+          });
+          resolve(productsArray);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    }
+
     firestore
       .collection('products')
       .orderBy('createdDate')
@@ -32,7 +53,8 @@ export const handleFetchProducts = () => {
       })
       .catch(err => {
         reject(err);
-      })
+      });
+
   })
 }
 

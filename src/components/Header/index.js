@@ -35,7 +35,7 @@ const Header = props => {
               </Link>
             </li>
             <li>
-              <Link to="/search">
+              <Link to="/search/mens">
                 Search
               </Link>
             </li>
