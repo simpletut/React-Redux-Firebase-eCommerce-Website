@@ -37,10 +37,12 @@ export function* onAddProductStart() {
 }
 
 export function* fetchProducts({ payload: {
-  filterType
+  filterType,
+  startAfter,
+  endAt
 }}) {
   try {
-    const products = yield handleFetchProducts({ filterType });
+    const products = yield handleFetchProducts({ filterType, startAfter, endAt });
     yield put(
       setProducts(products)
     );

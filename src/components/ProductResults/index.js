@@ -16,6 +16,8 @@ const ProductResults = ({ }) => {
   const { filterType } = useParams();
   const { products } = useSelector(mapState);
 
+  const { data, lastDoc } = products;
+
   useEffect(() => {
     dispatch(
       fetchProductsStart({ filterType })
@@ -27,8 +29,8 @@ const ProductResults = ({ }) => {
     history.push(`/search/${nextFilter}`);
   };
 
-  if (!Array.isArray(products)) return null;
-  if (products.length < 1) {
+  if (!Array.isArray(data)) return null;
+  if (data.length < 1) {
     return (
       <div className="products">
         <p>
@@ -53,6 +55,24 @@ const ProductResults = ({ }) => {
     handleChange: handleFilter
   };
 
+  const next = () => {
+    dispatch(
+      fetchProductsStart({
+        filterType,
+        startAfter: lastDoc
+      })
+    )
+  }
+
+  const prev = () => {
+    dispatch(
+      fetchProductsStart({
+        filterType,
+        endAt: lastDoc
+      })
+    )
+  }
+
   return (
     <div className="products">
 
@@ -63,7 +83,7 @@ const ProductResults = ({ }) => {
       <FormSelect {...configFilters} />
 
       <div className="productResults">
-        {products.map((product, pos) => {
+        {data.map((product, pos) => {
           const { productThumbnail, productName, productPrice } = product;
           if (!productThumbnail || !productName ||
             typeof productPrice === 'undefined') return null;
@@ -79,6 +99,17 @@ const ProductResults = ({ }) => {
           );
         })}
       </div>
+
+      <button
+        type="button"
+        onClick={() => prev()}
+      >Prev</button>
+
+      <button
+        type="button"
+        onClick={() => next()}
+      >Next</button>
+
     </div>
   );
 };

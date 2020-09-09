@@ -15,23 +15,30 @@ export const handleAddProduct = product => {
   });
 }
 
-export const handleFetchProducts = ({ filterType }) => {
+export const handleFetchProducts = ({ filterType, startAfter, endAt }) => {
   return new Promise((resolve, reject) => {
-
-    let ref = firestore.collection('products').orderBy('createdDate');
-
+    let ref = firestore.collection('products').orderBy('createdDate').limit(6)
     if (filterType) ref = ref.where('productCategory', '==', filterType);
+
+    if (startAfter) ref = ref.startAfter(startAfter)
+    if (endAt) ref = ref.endAt(endAt)
 
     ref
       .get()
       .then(snapshot => {
+
+        if (snapshot.docs.length < 1) reject('No results');
+
+
         const productsArray = snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             documentID: doc.id
           }
         });
-        resolve(productsArray);
+
+        var lastVisible = snapshot.docs[snapshot.docs.length - 1];
+        resolve({ data: productsArray, lastDoc: lastVisible });
       })
       .catch(err => {
         reject(err);
