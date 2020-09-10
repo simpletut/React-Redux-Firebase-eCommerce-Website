@@ -15,23 +15,32 @@ export const handleAddProduct = product => {
   });
 }
 
-export const handleFetchProducts = ({ filterType }) => {
+export const handleFetchProducts = ({ filterType, startAfterDoc, endAtDoc }) => {
   return new Promise((resolve, reject) => {
+    const pageSize = 6;
 
-    let ref = firestore.collection('products').orderBy('createdDate');
+    let ref = firestore.collection('products').orderBy('createdDate').limit(pageSize);
 
     if (filterType) ref = ref.where('productCategory', '==', filterType);
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
+    if (endAtDoc) ref = ref.endAt(endAtDoc);
 
     ref
       .get()
       .then(snapshot => {
-        const productsArray = snapshot.docs.map(doc => {
+
+        if (snapshot.size < 1) reject('No results');
+
+        const data = snapshot.docs.map(doc => {
           return {
             ...doc.data(),
             documentID: doc.id
           }
         });
-        resolve(productsArray);
+        resolve({
+          data,
+          queryDoc: snapshot.docs.pop()
+        });
       })
       .catch(err => {
         reject(err);

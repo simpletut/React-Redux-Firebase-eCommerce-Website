@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchProductsStart } from './../../redux/Products/products.actions';
 import Product from './Product';
+import Pagination from './../Pagination';
 import FormSelect from './../forms/FormSelect';
 import './styles.scss';
 
@@ -16,6 +17,8 @@ const ProductResults = ({ }) => {
   const { filterType } = useParams();
   const { products } = useSelector(mapState);
 
+  const { data, queryDoc } = products;
+
   useEffect(() => {
     dispatch(
       fetchProductsStart({ filterType })
@@ -27,8 +30,20 @@ const ProductResults = ({ }) => {
     history.push(`/search/${nextFilter}`);
   };
 
-  if (!Array.isArray(products)) return null;
-  if (products.length < 1) {
+  const handleNext = () => {
+    dispatch(
+      fetchProductsStart({ filterType, startAfterDoc: queryDoc })
+    )
+  };
+
+  const handlePrev = () => {
+    dispatch(
+      fetchProductsStart({ filterType, endAtDoc: queryDoc })
+    )
+  };
+
+  if (!Array.isArray(data)) return null;
+  if (data.length < 1) {
     return (
       <div className="products">
         <p>
@@ -53,6 +68,11 @@ const ProductResults = ({ }) => {
     handleChange: handleFilter
   };
 
+  const configPagination = {
+    onNextEvt: handleNext,
+    onPrevEvt: handlePrev
+  };
+
   return (
     <div className="products">
 
@@ -63,7 +83,7 @@ const ProductResults = ({ }) => {
       <FormSelect {...configFilters} />
 
       <div className="productResults">
-        {products.map((product, pos) => {
+        {data.map((product, pos) => {
           const { productThumbnail, productName, productPrice } = product;
           if (!productThumbnail || !productName ||
             typeof productPrice === 'undefined') return null;
@@ -79,6 +99,9 @@ const ProductResults = ({ }) => {
           );
         })}
       </div>
+
+      <Pagination {...configPagination} />
+
     </div>
   );
 };
