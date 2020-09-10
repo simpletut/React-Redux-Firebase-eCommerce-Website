@@ -5,6 +5,7 @@ import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
+import Pagination from './../../components/Pagination';
 import './styles.scss';
 
 const mapState = ({ productsData }) => ({
@@ -20,11 +21,12 @@ const Admin = props => {
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
 
+  const { data, queryDoc } = products;
+
   useEffect(() => {
     dispatch(
       fetchProductsStart()
     );
-
   }, []);
 
   const toggleModal = () => setHideModal(!hideModal);
@@ -55,6 +57,23 @@ const Admin = props => {
     );
     resetForm();
 
+  };
+
+  const handleNext = () => {
+    dispatch(
+      fetchProductsStart({ startAfterDoc: queryDoc })
+    )
+  };
+
+  const handlePrev = () => {
+    dispatch(
+      fetchProductsStart({ endAtDoc: queryDoc })
+    )
+  };
+
+  const configPagination = {
+    onNextEvt: handleNext,
+    onPrevEvt: handlePrev
   };
 
   return (
@@ -137,7 +156,7 @@ const Admin = props => {
               <td>
                 <table className="results" border="0" cellPadding="10" cellSpacing="0">
                   <tbody>
-                    {products.map((product, index) => {
+                    {(Array.isArray(data) && data.length > 0) && data.map((product, index) => {
                       const {
                         productName,
                         productThumbnail,
@@ -171,6 +190,9 @@ const Admin = props => {
           </tbody>
         </table>
 
+        <div className="adminPagination">
+          <Pagination {...configPagination} />
+        </div>
       </div>
 
     </div>
