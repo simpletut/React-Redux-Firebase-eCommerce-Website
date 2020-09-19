@@ -24,6 +24,7 @@ import Login from './pages/Login';
 import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Cart from './pages/Cart';
 import './default.scss';
 
 const App = props => {
@@ -52,6 +53,11 @@ const App = props => {
         <Route path="/search/:filterType" render={() => (
           <MainLayout>
             <Search />
+          </MainLayout>
+        )} />
+        <Route path="/cart" render={() => (
+          <MainLayout>
+            <Cart />
           </MainLayout>
         )} />
         <Route path="/registration" render={() => (
