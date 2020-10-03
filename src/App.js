@@ -25,6 +25,7 @@ import Recovery from './pages/Recovery';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
 import ProductDetails from './pages/ProductDetails';
+import Cart from './pages/Cart';
 import './default.scss';
 
 const App = props => {
@@ -58,6 +59,11 @@ const App = props => {
         <Route path="/product/:productID" render={() => (
           <MainLayout>
             <ProductDetails />
+          </MainLayout>
+        )} />
+        <Route path="/cart" render={() => (
+          <MainLayout>
+            <Cart />
           </MainLayout>
         )} />
         <Route path="/registration" render={() => (
