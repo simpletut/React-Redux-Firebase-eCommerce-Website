@@ -1,5 +1,6 @@
 import cartTypes from './cart.types';
-import { handleAddToCart, handleRemoveCartItem } from './cart.utils';
+import { handleAddToCart, handleReduceCartItem,
+  handleRemoveCartItem } from './cart.utils';
 
 const INITIAL_STATE = {
   cartItems: []
@@ -15,6 +16,14 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           nextCartItem: action.payload
         })
       };
+    case cartTypes.REDUCE_CART_ITEM:
+      return {
+        ...state,
+        cartItems: handleReduceCartItem({
+          prevCartItems: state.cartItems,
+          cartItemToReduce: action.payload
+        })
+      };
     case cartTypes.REMOVE_CART_ITEM:
       return {
         ...state,
@@ -22,7 +31,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           prevCartItems: state.cartItems,
           cartItemToRemove: action.payload
         })
-      }
+      };
     default:
       return state;
   }
