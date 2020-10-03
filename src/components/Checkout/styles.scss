@@ -1,0 +1,41 @@
+.checkout {
+  margin: 2rem auto;
+
+  h1 {
+    display: block;
+    width: 100%;
+  }
+
+  h1,
+  p {
+    text-align: center;
+  }
+
+  .checkoutHeader {
+    border-bottom: 1px solid grey;
+  }
+
+  .cart {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .checkoutHeader,
+  .cartItem {
+    width: 100%;
+    text-align: left;
+
+    th,
+    td {
+      width: 22%;
+    }
+  }
+
+  .cartItem {
+    td img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+}
