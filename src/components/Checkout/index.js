@@ -100,7 +100,7 @@ const Checkout = ({ }) => {
                                   </Button>
                                 </td>
                                 <td>
-                                  <Button>
+                                  <Button onClick={() => history.push('/payment')}>
                                     Checkout
                                   </Button>
                                 </td>

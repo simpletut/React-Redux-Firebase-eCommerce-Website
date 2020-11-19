@@ -16,7 +16,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
-    "firebase-functions": "^3.6.1"
+    "firebase-functions": "^3.6.1",
+    "stripe": "^8.124.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
