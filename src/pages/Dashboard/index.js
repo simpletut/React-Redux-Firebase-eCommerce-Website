@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { getUserOrderHistory } from './../../redux/Orders/orders.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import OrderHistory from './../../components/OrderHistory';
 import './styles.scss';
 
-const Dashboard = props => {
+const mapState = ({ user, ordersData }) => ({
+  currentUser: user.currentUser,
+  orderHistory: ordersData.orderHistory
+});
+
+const Dashboard = ({ }) => {
+  const { currentUser, orderHistory } = useSelector(mapState);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      getUserOrderHistory(currentUser.id)
+    )
+  }, []);
+
   return (
-    <h1>
-      Welcome to your account
-    </h1>
+    <div>
+      <h1>
+        Order History
+      </h1>
+
+      <OrderHistory orders={orderHistory && orderHistory.data} />
+
+    </div>
   );
 };
 
