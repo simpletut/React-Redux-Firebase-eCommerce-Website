@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.11.0",
     "@testing-library/jest-dom": "^4.2.4",
@@ -11,6 +12,7 @@
     "axios": "^0.21.0",
     "ckeditor4-react": "^1.2.0",
     "firebase": "^7.14.1",
+    "moment": "^2.29.1",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-country-region-selector": "^3.0.1",
