@@ -105,3 +105,20 @@ a, a:hover {
 .dashboardLayout {
   height: calc(100% - 6.5rem - 5.8rem);
 }
+
+@media only screen and (max-width: 980px) {
+  html {
+    font-size: 9px;
+  }
+
+  .controlPanel {
+    padding: 0 10px;
+
+    .sidebar {
+      position: relative;
+      width: 100%;
+      border: none;
+      margin-bottom: 2.5rem;
+    }
+  }
+}

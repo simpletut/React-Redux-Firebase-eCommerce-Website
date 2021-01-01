@@ -50,3 +50,16 @@
   }
 
 }
+
+@media only screen and (max-width: 980px) {
+
+  .directory .wrap .item {
+    width: 100%;
+    height: 50%;
+
+    a {
+      font-size: 1.5rem;
+    }
+  }
+
+}
