@@ -12,6 +12,7 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 100;
 
   .modal {
     position: absolute;
@@ -26,5 +27,7 @@
     height: auto;
     min-height: 40.0rem;
     pointer-events: all;
+    max-height: 95vh;
+    overflow: auto;
   }
 }

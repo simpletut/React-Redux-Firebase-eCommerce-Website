@@ -69,7 +69,7 @@ const SignIn = props => {
 
           <Button type="submit">
             LogIn
-            </Button>
+          </Button>
 
           <div className="socialSignin">
             <div className="row">
@@ -80,9 +80,13 @@ const SignIn = props => {
           </div>
 
           <div className="links">
+            <Link to="/registration">
+              Register
+            </Link>
+            {` | `}
             <Link to="/recovery">
               Reset Password
-              </Link>
+            </Link>
           </div>
 
         </form>

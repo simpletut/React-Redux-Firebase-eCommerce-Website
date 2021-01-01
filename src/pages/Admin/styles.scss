@@ -44,3 +44,25 @@
     }
   }
 }
+
+@media only screen and (max-width: 980px) {
+  .manageProducts {
+    table {
+      width: 100%;
+
+      .results {
+        width: 100%;
+
+        tr td {
+          display: block;
+          width: 100%;
+
+          img {
+            display: block;
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+}

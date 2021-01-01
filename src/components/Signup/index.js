@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { signUpUserStart } from './../../redux/User/user.actions';
 import './styles.scss';
 
@@ -112,8 +112,18 @@ const Signup = props => {
 
           <Button type="submit">
             Register
-            </Button>
+          </Button>
         </form>
+
+        <div className="links">
+          <Link to="/login">
+            LogIn
+          </Link>
+          {` | `}
+          <Link to="/recovery">
+            Reset Password
+            </Link>
+        </div>
       </div>
     </AuthWrapper>
   );
